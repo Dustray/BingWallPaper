@@ -36,12 +36,13 @@ namespace BingWallPaper
         {
 
             InitializeComponent();
-            checkIsAutoRun();
+            //checkIsAutoRun();
             setStatusLabel.Text = "正在获取图片";
             setStatusLabel.ForeColor = Color.Blue;
             statusProgressBar.Value += 10;
-            Thread th = new Thread(init);
-            th.Start();
+            //Thread th = new Thread(init);
+            //th.Start();
+            init();
         }
         public void init()
         {

@@ -99,7 +99,7 @@ namespace ProgramSetting
                     {
                         Directory.CreateDirectory(ConfigOperation.getXmlValue(dir.Substring(0, dir.Length - 1), "ImageSavePath"));
                     }
-                    bmpWallpaper.Save(strSavePath, ImageFormat.Jpeg); //图片保存路径为相对路径，保存在程序的目录下
+                    bmpWallpaper.Save(ConfigOperation.getXmlValue(dir.Substring(0, dir.Length - 1), "ImageSavePath") + "\\bing" + year + month + day + ".jpg", ImageFormat.Jpeg); //图片保存路径为相对路径，保存在程序的目录下
                                                                       //Console.WriteLine(ConfigOperation.getXmlValue(path, "ImageSavePath"));
                 }
 

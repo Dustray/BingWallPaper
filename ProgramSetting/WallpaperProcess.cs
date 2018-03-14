@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -67,6 +68,15 @@ namespace ProgramSetting
         );
         public static void setWallpaper()
         {
+            DownloadOrSetDirect(false);//不需要重复下载，本地有则使用本地资源
+        }
+        public static void setWallpaperNewDownload()
+        {
+            DownloadOrSetDirect(true);//需要重复下载
+        }
+
+        private static void DownloadOrSetDirect(bool needDownload)
+        {
             if (getURL() == "0")
                 return;
             //设置墙纸
@@ -80,9 +90,10 @@ namespace ProgramSetting
             month = m < 10 ? "0" + m : "" + m;
             day = d < 10 ? "0" + d : "" + d;
             string strSavePath = ConfigOperation.getXmlValue(dir.Substring(0, dir.Length - 1), "ImageSavePath") + "\\bing" + year + month + day + ".jpg";
-            if (File.Exists(strSavePath))
+            if (!needDownload&&File.Exists(strSavePath))
             {
                 //存在文件
+                //Trace.WriteLine("ss");
                 SystemParametersInfo(20, 1, strSavePath, 1);
             }
             else
@@ -100,7 +111,7 @@ namespace ProgramSetting
                         Directory.CreateDirectory(ConfigOperation.getXmlValue(dir.Substring(0, dir.Length - 1), "ImageSavePath"));
                     }
                     bmpWallpaper.Save(ConfigOperation.getXmlValue(dir.Substring(0, dir.Length - 1), "ImageSavePath") + "\\bing" + year + month + day + ".jpg", ImageFormat.Jpeg); //图片保存路径为相对路径，保存在程序的目录下
-                                                                      //Console.WriteLine(ConfigOperation.getXmlValue(path, "ImageSavePath"));
+                                                                                                                                                                                  //Console.WriteLine(ConfigOperation.getXmlValue(path, "ImageSavePath"));
                 }
 
                 SystemParametersInfo(20, 1, strSavePath, 1);

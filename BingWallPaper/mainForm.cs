@@ -44,6 +44,9 @@ namespace BingWallPaper
             //th.Start();
             init();
         }
+        /// <summary>
+        /// 初始化
+        /// </summary>
         public void init()
         {
 
@@ -80,9 +83,12 @@ namespace BingWallPaper
             this.panel1.BringToFront();//将panel放在前面
         }
 
-        /**
-*获取设置 
-*/
+
+        /// <summary>
+        /// 获取设置 
+        /// </summary>
+        /// <param name="size"></param>
+        /// <param name="style"></param>
         public void changeDefaultSetting(int size, int style)
         {
             switch (style)
@@ -107,9 +113,12 @@ namespace BingWallPaper
                 case 2: imageSize1080full.Checked = true; break;
             }
             savePath.Text = ConfigOperation.getXmlValue(Application.StartupPath, "ImageSavePath");
-        }/**
-         *改变样式RadioButton 
-         */
+        }
+
+        /// <summary>
+        /// 改变样式RadioButton 
+        /// </summary>
+        /// <param name="style"></param>
         public void changeWallpaperStyle(int style)
         {
             switch (style)
@@ -157,10 +166,10 @@ namespace BingWallPaper
 
         }
 
-        /**
-         *设置程序背景
-         */
-
+        /// <summary>
+        /// 设置程序背景
+        /// </summary>
+        /// <param name="url"></param>
         public void setProgramImage(string url)
         {
             string year = DateTime.Now.Year.ToString();
@@ -191,10 +200,9 @@ namespace BingWallPaper
                 }
             }
         }
-
-        /**
-         * 设置注册表壁纸样式
-         */
+        /// <summary>
+        /// 设置注册表壁纸样式
+        /// </summary>
         private void setRegistryStyle()
         {
             RegistryKey myRegKey = null;
@@ -302,7 +310,7 @@ namespace BingWallPaper
             if (imageSize1080.Checked)
             {
                 ConfigOperation.setXmlValue(Application.StartupPath, "WallpaperSize", "0");
-                Thread t = new Thread(WallpaperProcess.setWallpaper);
+                Thread t = new Thread(WallpaperProcess.setWallpaperNewDownload);
                 t.Start();
             }
         }
@@ -311,7 +319,7 @@ namespace BingWallPaper
             if (imageSize1080full.Checked)
             {
                 ConfigOperation.setXmlValue(Application.StartupPath, "WallpaperSize", "2");
-                Thread t = new Thread(WallpaperProcess.setWallpaper);
+                Thread t = new Thread(WallpaperProcess.setWallpaperNewDownload);
                 t.Start();
             }
         }
@@ -320,7 +328,7 @@ namespace BingWallPaper
             if (imageSize720.Checked)
             {
                 ConfigOperation.setXmlValue(Application.StartupPath, "WallpaperSize", "1");
-                Thread t = new Thread(WallpaperProcess.setWallpaper);
+                Thread t = new Thread(WallpaperProcess.setWallpaperNewDownload);
                 t.Start();
             }
         }
@@ -351,6 +359,11 @@ namespace BingWallPaper
                 MessageBox.Show("路径非法:" + ex.Message);
             }
         }
+        /// <summary>
+        /// 设置程序开机自动运行，添加进注册表
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="isAutoRun"></param>
         public void SetAutoRun(string fileName, bool isAutoRun)
         {
             //string reSet = string.Empty;
